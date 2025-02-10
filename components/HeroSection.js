@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import Script from 'next/script';
 
@@ -7,11 +6,8 @@ const HeroSection = () => {
 
   return (
     <section className="hero-section">
-      <Script 
-        src="https://aframe.io/releases/1.2.0/aframe.min.js"
-        strategy="afterInteractive"
-      />
-      
+      <Script src="https://aframe.io/releases/1.2.0/aframe.min.js" strategy="afterInteractive" />
+
       <div className="hero-content">
         <h1>{t('hero.title')}</h1>
         <p>{t('hero.subtitle')}</p>

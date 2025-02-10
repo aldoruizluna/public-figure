@@ -1,5 +1,5 @@
 // Default theme configuration
-export const defaultTheme = {
+const defaultTheme = {
   colors: {
     primary: '#222222',
     secondary: '#4CC3D9',
@@ -78,7 +78,7 @@ export const defaultTheme = {
 };
 
 // Example alternative theme
-export const darkTheme = {
+const darkTheme = {
   ...defaultTheme,
   colors: {
     ...defaultTheme.colors,
@@ -104,14 +104,14 @@ const themeSchema = {
   colors: {
     required: ['primary', 'secondary', 'accent', 'background', 'text'],
     background: ['primary', 'secondary', 'dark'],
-    text: ['primary', 'secondary', 'light']
+    text: ['primary', 'secondary', 'light'],
   },
   typography: {
     required: ['fontFamily', 'fontSize', 'fontWeight'],
     fontFamily: ['primary', 'secondary'],
     fontSize: ['small', 'base', 'large', 'xlarge', 'xxlarge', 'hero'],
-    fontWeight: ['normal', 'medium', 'bold']
-  }
+    fontWeight: ['normal', 'medium', 'bold'],
+  },
 };
 
 // Validation helper functions
@@ -125,7 +125,7 @@ const validateTheme = (theme) => {
   const errors = [];
 
   // Check required top-level properties
-  themeSchema.required.forEach(prop => {
+  themeSchema.required.forEach((prop) => {
     if (!theme[prop]) {
       errors.push(`Missing required property: ${prop}`);
     }
@@ -133,18 +133,23 @@ const validateTheme = (theme) => {
 
   // Validate colors
   if (theme.colors) {
-    themeSchema.colors.required.forEach(colorKey => {
+    themeSchema.colors.required.forEach((colorKey) => {
       if (!theme.colors[colorKey]) {
         errors.push(`Missing required color: ${colorKey}`);
-      } else if (typeof theme.colors[colorKey] === 'string' && !validateColor(theme.colors[colorKey])) {
+      } else if (
+        typeof theme.colors[colorKey] === 'string' &&
+        !validateColor(theme.colors[colorKey])
+      ) {
         errors.push(`Invalid color format for ${colorKey}: ${theme.colors[colorKey]}`);
       } else if (typeof theme.colors[colorKey] === 'object') {
         const requiredSubColors = themeSchema.colors[colorKey] || [];
-        requiredSubColors.forEach(subColor => {
+        requiredSubColors.forEach((subColor) => {
           if (!theme.colors[colorKey][subColor]) {
             errors.push(`Missing required sub-color: ${colorKey}.${subColor}`);
           } else if (!validateColor(theme.colors[colorKey][subColor])) {
-            errors.push(`Invalid color format for ${colorKey}.${subColor}: ${theme.colors[colorKey][subColor]}`);
+            errors.push(
+              `Invalid color format for ${colorKey}.${subColor}: ${theme.colors[colorKey][subColor]}`
+            );
           }
         });
       }
@@ -153,12 +158,12 @@ const validateTheme = (theme) => {
 
   // Validate typography
   if (theme.typography) {
-    themeSchema.typography.required.forEach(typoProp => {
+    themeSchema.typography.required.forEach((typoProp) => {
       if (!theme.typography[typoProp]) {
         errors.push(`Missing required typography property: ${typoProp}`);
       } else {
         const requiredValues = themeSchema.typography[typoProp] || [];
-        requiredValues.forEach(value => {
+        requiredValues.forEach((value) => {
           if (!theme.typography[typoProp][value]) {
             errors.push(`Missing required typography value: ${typoProp}.${value}`);
           }
@@ -169,7 +174,7 @@ const validateTheme = (theme) => {
 
   return {
     isValid: errors.length === 0,
-    errors
+    errors,
   };
 };
 
@@ -181,15 +186,15 @@ const sanitizeTheme = (theme) => {
   if (theme.colors) {
     sanitized.colors = {
       ...sanitized.colors,
-      ...theme.colors
+      ...theme.colors,
     };
-    
+
     // Merge nested color objects
-    ['background', 'text'].forEach(colorGroup => {
+    ['background', 'text'].forEach((colorGroup) => {
       if (theme.colors[colorGroup]) {
         sanitized.colors[colorGroup] = {
           ...sanitized.colors[colorGroup],
-          ...theme.colors[colorGroup]
+          ...theme.colors[colorGroup],
         };
       }
     });
@@ -199,16 +204,16 @@ const sanitizeTheme = (theme) => {
   if (theme.typography) {
     sanitized.typography = {
       ...sanitized.typography,
-      ...theme.typography
+      ...theme.typography,
     };
   }
 
   // Merge other properties
-  ['spacing', 'animation', 'layout'].forEach(prop => {
+  ['spacing', 'animation', 'layout'].forEach((prop) => {
     if (theme[prop]) {
       sanitized[prop] = {
         ...sanitized[prop],
-        ...theme[prop]
+        ...theme[prop],
       };
     }
   });
@@ -217,14 +222,14 @@ const sanitizeTheme = (theme) => {
 };
 
 // Function to create custom themes
-export const createTheme = (customization) => {
+const createTheme = (customization) => {
   const newTheme = {
     ...defaultTheme,
     ...customization,
     colors: {
       ...defaultTheme.colors,
-      ...(customization.colors || {})
-    }
+      ...(customization.colors || {}),
+    },
   };
 
   const validation = validateTheme(newTheme);
@@ -243,7 +248,7 @@ const themePresets = {
   // Add more preset themes here
 };
 
-export const saveThemePreset = (name, theme) => {
+const saveThemePreset = (name, theme) => {
   if (typeof window !== 'undefined') {
     const presets = JSON.parse(localStorage.getItem('themePresets') || '{}');
     presets[name] = theme;
@@ -251,7 +256,7 @@ export const saveThemePreset = (name, theme) => {
   }
 };
 
-export const loadThemePreset = (name) => {
+const loadThemePreset = (name) => {
   if (typeof window !== 'undefined') {
     const presets = JSON.parse(localStorage.getItem('themePresets') || '{}');
     return presets[name] || themePresets[name] || defaultTheme;
@@ -259,7 +264,7 @@ export const loadThemePreset = (name) => {
   return defaultTheme;
 };
 
-export const getAllThemePresets = () => {
+const getAllThemePresets = () => {
   if (typeof window !== 'undefined') {
     const customPresets = JSON.parse(localStorage.getItem('themePresets') || '{}');
     return { ...themePresets, ...customPresets };
@@ -267,12 +272,12 @@ export const getAllThemePresets = () => {
   return themePresets;
 };
 
-export const exportThemePresets = () => {
+const exportThemePresets = () => {
   if (typeof window !== 'undefined') {
     const presets = getAllThemePresets();
     const dataStr = JSON.stringify(presets);
     const dataUri = `data:application/json;charset=utf-8,${encodeURIComponent(dataStr)}`;
-    
+
     const exportFileDefaultName = 'theme-presets.json';
     const linkElement = document.createElement('a');
     linkElement.setAttribute('href', dataUri);
@@ -282,10 +287,10 @@ export const exportThemePresets = () => {
   }
 };
 
-export const importThemePresets = async (file) => {
+const importThemePresets = async (file) => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
-    
+
     reader.onload = (event) => {
       try {
         const presets = JSON.parse(event.target.result);
@@ -306,25 +311,27 @@ export const importThemePresets = async (file) => {
 
         resolve({
           presets: getAllThemePresets(),
-          warnings: validationErrors
+          warnings: validationErrors,
         });
       } catch (error) {
         reject(new Error('Invalid theme preset file'));
       }
     };
-    
+
     reader.onerror = () => reject(new Error('Error reading file'));
     reader.readAsText(file);
   });
 };
 
-// Export existing functionality
-export { 
-  themePresets,
+// Export all theme-related functionality
+export {
   defaultTheme,
   darkTheme,
+  createTheme,
+  themePresets,
   saveThemePreset,
   loadThemePreset,
   getAllThemePresets,
-  exportThemePresets
+  exportThemePresets,
+  importThemePresets,
 };

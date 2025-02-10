@@ -10,6 +10,9 @@ module.exports = {
       '<rootDir>/__mocks__/fileMock.js',
   },
   testPathIgnorePatterns: ['<rootDir>/.next/', '<rootDir>/node_modules/'],
+  transform: {
+    '^.+\\.(js|jsx)$': ['babel-jest', { presets: ['next/babel'] }],
+  },
   transformIgnorePatterns: ['/node_modules/'],
   coverageThreshold: {
     global: {
@@ -25,4 +28,4 @@ module.exports = {
     '!**/node_modules/**',
     '!**/.next/**',
   ],
-}
+};

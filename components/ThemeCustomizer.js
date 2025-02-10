@@ -1,12 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
 import { useTheme } from './ThemeProvider';
-import { 
-  createTheme, 
-  saveThemePreset, 
-  loadThemePreset, 
+import {
+  createTheme,
+  saveThemePreset,
+  loadThemePreset,
   getAllThemePresets,
   exportThemePresets,
-  importThemePresets 
+  importThemePresets,
 } from '../config/theme';
 import PreviewCard from './PreviewCard';
 import Toast from './Toast';
@@ -27,17 +27,17 @@ const ThemeCustomizer = () => {
 
   const addToast = (message, type = 'success') => {
     const id = toastIdCounter.current++;
-    setToasts(prev => [...prev, { id, message, type }]);
+    setToasts((prev) => [...prev, { id, message, type }]);
     setTimeout(() => {
-      setToasts(prev => prev.filter(toast => toast.id !== id));
+      setToasts((prev) => prev.filter((toast) => toast.id !== id));
     }, 5000);
   };
 
   const handleColorChange = (colorKey, value) => {
     const newTheme = createTheme({
       colors: {
-        [colorKey]: value
-      }
+        [colorKey]: value,
+      },
     });
     updateTheme(newTheme);
   };
@@ -81,20 +81,20 @@ const ThemeCustomizer = () => {
       try {
         const { presets, warnings } = await importThemePresets(file);
         setPresets(presets);
-        
+
         // Show success message
         addToast('Theme presets imported successfully!', 'success');
-        
+
         // Show warnings if any
         if (warnings.length > 0) {
-          warnings.forEach(warning => {
+          warnings.forEach((warning) => {
             addToast(warning, 'warning');
           });
         }
       } catch (error) {
         addToast(error.message || 'Error importing theme presets', 'error');
       }
-      
+
       if (fileInputRef.current) {
         fileInputRef.current.value = '';
       }
@@ -104,26 +104,23 @@ const ThemeCustomizer = () => {
   return (
     <>
       <div className={`theme-customizer ${isOpen ? 'open' : ''}`}>
-        <button 
+        <button
           className="theme-customizer-toggle"
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle theme customizer"
         >
           {isOpen ? '✕' : '🎨'}
         </button>
-        
+
         <div className="theme-customizer-content">
           <h3>Theme Customizer</h3>
-          
+
           <div className="preset-manager">
             <h4>Theme Presets</h4>
-            
+
             <div className="preset-controls">
-              <select 
-                value={activePreset}
-                onChange={(e) => handleLoadPreset(e.target.value)}
-              >
-                {Object.keys(presets).map(presetName => (
+              <select value={activePreset} onChange={(e) => handleLoadPreset(e.target.value)}>
+                {Object.keys(presets).map((presetName) => (
                   <option key={presetName} value={presetName}>
                     {presetName}
                   </option>
@@ -131,14 +128,14 @@ const ThemeCustomizer = () => {
               </select>
 
               <div className="preset-actions">
-                <button 
+                <button
                   className="icon-button"
                   onClick={handleExportPresets}
                   title="Export presets"
                 >
                   📤
                 </button>
-                <button 
+                <button
                   className="icon-button"
                   onClick={() => fileInputRef.current?.click()}
                   title="Import presets"
@@ -154,7 +151,7 @@ const ThemeCustomizer = () => {
                 />
               </div>
             </div>
-            
+
             <div className="save-preset">
               <input
                 type="text"
@@ -162,10 +159,7 @@ const ThemeCustomizer = () => {
                 value={newPresetName}
                 onChange={(e) => setNewPresetName(e.target.value)}
               />
-              <button 
-                onClick={handleSavePreset}
-                disabled={!newPresetName}
-              >
+              <button onClick={handleSavePreset} disabled={!newPresetName}>
                 Save
               </button>
             </div>
@@ -174,24 +168,24 @@ const ThemeCustomizer = () => {
           <div className="color-pickers">
             <div className="color-picker">
               <label>Primary Color</label>
-              <input 
-                type="color" 
+              <input
+                type="color"
                 value={theme.colors.primary}
                 onChange={(e) => handleColorChange('primary', e.target.value)}
               />
             </div>
             <div className="color-picker">
               <label>Secondary Color</label>
-              <input 
-                type="color" 
+              <input
+                type="color"
                 value={theme.colors.secondary}
                 onChange={(e) => handleColorChange('secondary', e.target.value)}
               />
             </div>
             <div className="color-picker">
               <label>Accent Color</label>
-              <input 
-                type="color" 
+              <input
+                type="color"
                 value={theme.colors.accent}
                 onChange={(e) => handleColorChange('accent', e.target.value)}
               />
@@ -209,7 +203,7 @@ const ThemeCustomizer = () => {
             transform: translateY(-50%);
             width: 300px;
             background: var(--color-background-primary);
-            box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+            box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
             transition: right var(--animation-duration-normal) var(--animation-easing-default);
             z-index: 1000;
             border-radius: 8px 0 0 8px;
@@ -219,22 +213,13 @@ const ThemeCustomizer = () => {
             right: 0;
           }
 
-          .theme-customizer-toggle {
-            position: absolute;
-            left: -40px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 40px;
-            height: 40px;
-            background: var(--color-primary);
-            border: none;
-            color: var(--color-text-light);
-            cursor: pointer;
-            border-radius: 8px 0 0 8px;
-          }
-
           .theme-customizer-content {
             padding: var(--spacing-md);
+            display: none;
+          }
+
+          .theme-customizer.open .theme-customizer-content {
+            display: block;
           }
 
           .color-pickers {
@@ -328,7 +313,8 @@ const ThemeCustomizer = () => {
             border: none;
             border-radius: var(--spacing-xs);
             cursor: pointer;
-            transition: background-color var(--animation-duration-fast) var(--animation-easing-default);
+            transition: background-color var(--animation-duration-fast)
+              var(--animation-easing-default);
           }
 
           .save-preset button:hover {
@@ -362,7 +348,7 @@ const ThemeCustomizer = () => {
             key={id}
             message={message}
             type={type}
-            onClose={() => setToasts(prev => prev.filter(t => t.id !== id))}
+            onClose={() => setToasts((prev) => prev.filter((t) => t.id !== id))}
           />
         ))}
       </div>
