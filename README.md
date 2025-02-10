@@ -1,48 +1,137 @@
-# Public Figure Portfolio Webapp
+# Aldo Ruiz Luna Portfolio & White-Label SaaS Webapp
 
-This is a ready-to-deploy web application designed to showcase your public persona as an authority in additive manufacturing, automation, and creative living. It includes:
+This project is a robust, modular personal brand and portfolio webapp built with [Next.js](https://nextjs.org/) and [React](https://reactjs.org/). It is designed not only to showcase your expertise in advanced 3D fabrication, automation consulting, and creative expression, but also to be scalable into a white-label SaaS solution for multiple clients.
 
-- **3D & VR content:** An embedded A-Frame scene (expandable with Three.js or more advanced A-Frame interactions).
-- **Bilingual support (English & Spanish):** Easily switch between languages using i18next.
-- **Multiple sections:** Home, About, Portfolio, Blog, and Contact.
-- **Responsive design:** Mobile-friendly and desktop-compatible.
-- **Deployment Ready:** Simply push to GitHub and deploy via GitHub Pages or any static host.
+## Key Features
+
+- **Modern Next.js Architecture:** No need for a traditional `index.html`—Next.js handles routing and rendering via the `pages` directory.
+- **Modular & Scalable:** Built with a component-driven architecture for easy customization and white labeling.
+- **Multilingual Support:** Powered by `i18next` and `react-i18next` to provide a seamless English/Spanish experience.
+- **Dynamic 3D/VR Content:** Integrated A-Frame scenes for immersive 3D content.
+- **Fully Responsive:** A mobile-first design that looks great on any device.
+- **Extensible:** Ready to be enhanced with dynamic data, custom theming, an admin dashboard, and more.
+
+## Project Structure
+
+```
+my-portfolio-app/
+├── components/
+│   ├── AboutSection.js
+│   ├── BlogSection.js
+│   ├── ContactSection.js
+│   ├── Footer.js
+│   ├── HeroSection.js
+│   ├── Layout.js
+│   ├── Navbar.js
+│   ├── PortfolioSection.js
+│   └── ServicesSection.js
+├── config/
+│   ├── branding.js
+│   └── i18n.js
+├── pages/
+│   ├── _app.js
+│   ├── _document.js   // (Optional: customize the overall HTML)
+│   └── index.js
+├── public/
+│   └── images/
+│       ├── logo.png
+│       ├── placeholder1.jpg
+│       ├── placeholder2.jpg
+│       ├── placeholder3.jpg
+│       └── placeholder4.jpg
+├── styles/
+│   └── globals.css
+├── next.config.js
+└── package.json
+```
 
 ## Getting Started
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) (version 14 or later is recommended)
+- npm (comes with Node.js) or [Yarn](https://yarnpkg.com/)
+
+### Installation
 
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/yourusername/your-repo-name.git
-   cd your-repo-name
+   git clone https://github.com/yourusername/my-portfolio-app.git
+   cd my-portfolio-app
    ```
 
-2. **Run Locally**
+2. **Install Dependencies**
 
-   Open `index.html` in your browser to view the webapp.
+   ```bash
+   npm install
+   # or, if you use Yarn:
+   # yarn install
+   ```
 
-3. **Deploying on GitHub Pages**
+### Running the Development Server
 
-   - Push your repository to GitHub.
-   - Go to your repository’s **Settings**.
-   - Scroll down to the **GitHub Pages** section.
-   - Select the branch (e.g., `main` or `master`) and set the folder to `/ (root)`.
-   - Your site will be live at `https://yourusername.github.io/your-repo-name/`.
+Start the Next.js development server:
 
-## Customization
+```bash
+npm run dev
+# or
+yarn dev
+```
 
-- **Content:** Edit `index.html` to update text and add new sections.
-- **Styling:** Modify `styles.css` to change the look and feel.
-- **Language & Text:** Update translation keys or add new languages in `script.js`.
-- **3D/VR Enhancements:** Expand the A-Frame scene or integrate additional Three.js components.
+Open [http://localhost:3000](http://localhost:3000) to view your webapp in the browser. The page will automatically reload if you make changes.
 
-## Future Enhancements
+### Building & Deploying
 
-- Integrate more advanced 3D/VR interactions.
-- Build a dynamic blog (for example, with a headless CMS or markdown-based posts).
-- Showcase your NFT collection and other digital assets.
-- Add animations and more immersive UI elements.
+To build the project for production:
+
+```bash
+npm run build
+# or
+yarn build
+```
+
+Then, to start the production server locally:
+
+```bash
+npm run start
+# or
+yarn start
+```
+
+For deployment, you can host your Next.js app on platforms such as [Vercel](https://vercel.com/), [Netlify](https://www.netlify.com/), or any Node‑compatible hosting service.
+
+## Customization & White Labeling
+
+- **Branding:**  
+  Modify the file `config/branding.js` to update your brand’s name, logo, tagline, and other settings. This file makes it simple to swap out the branding for different white-label customers.
+
+- **Internationalization:**  
+  Update translation strings in `config/i18n.js` as needed. You can add more languages or adjust the existing English and Spanish content.
+
+- **Styling:**  
+  Global styles are defined in `styles/globals.css`. You can extend or override these styles using CSS modules, styled‑components, or your preferred styling method.
+
+- **Components:**  
+  The project is built with a modular architecture. All major sections (e.g., Hero, About, Services, Portfolio, Blog, Contact) are organized as separate components in the `components/` folder. This makes it easy to rearrange, extend, or even remove sections as your needs evolve.
+
+- **Advanced Features:**  
+  As you scale the project into a SaaS offering, consider adding:
+  - An admin dashboard for managing content.
+  - API routes for dynamic data (blog posts, portfolio items, etc.).
+  - User authentication and multi-tenancy support.
+  - Theming and custom styling per white-label customer.
+
+## Additional Information
+
+### About `index.html` in Next.js
+
+In Next.js, you do **not** need a traditional `index.html` file. The homepage is rendered from `pages/index.js`, and the overall HTML document is managed by Next.js. If you need to customize the HTML structure, create a custom `pages/_document.js` file.
 
 ## License
 
 This project is open source and available under the [MIT License](LICENSE).
+
+---
+
+Feel free to fork, customize, and extend this project as you continue to build your digital presence and white-label SaaS solution!

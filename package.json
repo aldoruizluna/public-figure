@@ -1,0 +1,16 @@
+{
+    "name": "my-portfolio-app",
+    "version": "1.0.0",
+    "scripts": {
+      "dev": "next dev",
+      "build": "next build",
+      "start": "next start"
+    },
+    "dependencies": {
+      "next": "latest",
+      "react": "latest",
+      "react-dom": "latest",
+      "i18next": "^21.8.15",
+      "react-i18next": "^11.15.3"
+    }
+  }  
