@@ -1,4 +1,8 @@
 /* Global Styles */
+html {
+  scroll-behavior: smooth;
+}
+
 html, body {
   margin: 0;
   padding: 0;
@@ -66,7 +70,7 @@ a {
 .nav-links li a {
   color: #fff;
   font-weight: 500;
-  transition: color 0.3s ease;
+  transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
 }
 
@@ -82,7 +86,7 @@ a {
   bottom: -4px;
   left: 0;
   background-color: #fff;
-  transition: width 0.3s ease;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .nav-links li a:hover::after {
@@ -271,47 +275,80 @@ form button {
   }
 
   .nav-content {
-    position: fixed;
-    top: 0;
-    right: -100%;
+    position: absolute;
+    top: 100%;
+    left: 0;
     width: 100%;
-    height: 100vh;
+    height: auto;
+    max-height: 0;
     background-color: #222;
     flex-direction: column;
-    justify-content: center;
-    transition: right 0.3s ease;
-    padding: 2rem;
+    justify-content: flex-start;
+    transition: max-height 0.3s ease;
+    overflow: hidden;
+    padding: 0;
   }
 
   .nav-content.open {
-    right: 0;
+    max-height: 100vh;
+    padding: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
 
   .nav-links {
     flex-direction: column;
     align-items: center;
-    gap: 2rem;
-    margin-bottom: 2rem;
+    gap: 1.5rem;
+    margin: 1rem 0;
   }
 
   .nav-links li {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.3s ease;
-  }
-
-  .nav-content.open .nav-links li {
     opacity: 1;
-    transform: translateY(0);
-    transition-delay: calc(0.1s * var(--i));
+    transform: none;
   }
 
   .lang-switcher {
-    margin-top: 2rem;
+    margin: 1rem 0;
   }
 }
 
 /* Update body padding to account for fixed navbar */
 body {
-  padding-top: 70px;
+  padding-top: var(--navbar-height, 70px);
+}
+
+/* Back to Top Button */
+.back-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #222;
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 999;
+  border: none;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.back-to-top:hover {
+  background: #444;
+  transform: translateY(-3px);
+}
+
+.back-to-top::before {
+  content: '↑';
+  font-size: 20px;
 }
