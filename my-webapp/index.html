@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Public Figure Portfolio</title>
+    <link rel="stylesheet" href="styles.css" />
+
+    <!-- Three.js (for future 3D enhancements) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- A-Frame for VR/3D Scenes -->
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <!-- i18next for internationalization -->
+    <script src="https://unpkg.com/i18next@21.8.15/dist/umd/i18next.min.js"></script>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div class="logo">My Public Figure</div>
+        <ul>
+          <li><a href="#home" data-i18n="nav.home">Home</a></li>
+          <li><a href="#about" data-i18n="nav.about">About</a></li>
+          <li><a href="#portfolio" data-i18n="nav.portfolio">Portfolio</a></li>
+          <li><a href="#blog" data-i18n="nav.blog">Blog</a></li>
+          <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+        </ul>
+        <div class="lang-switcher">
+          <button id="lang-en">EN</button>
+          <button id="lang-es">ES</button>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Home Section with 3D/VR Scene -->
+      <section id="home">
+        <h1 data-i18n="home.title">Welcome to My World</h1>
+        <p data-i18n="home.subtitle">
+          A journey into additive manufacturing, automation, and creativity.
+        </p>
+        <!-- A simple A-Frame VR scene with a rotating box -->
+        <a-scene embedded style="height:300px;">
+          <a-box
+            position="0 1 -3"
+            rotation="0 45 0"
+            color="#4CC3D9"
+            animation="property: rotation; to: 0 405 0; loop: true; dur: 5000"
+          ></a-box>
+          <a-sky color="#ECECEC"></a-sky>
+        </a-scene>
+      </section>
+
+      <!-- About Section -->
+      <section id="about">
+        <h2 data-i18n="about.title">About Me</h2>
+        <p data-i18n="about.description">
+          I am a pioneer in additive manufacturing and automation, committed to a sustainable solarpunk lifestyle. I nurture my body with plant-based nutrition and embrace a body-first living philosophy while expressing myself through music, dance, and creative arts.
+        </p>
+      </section>
+
+      <!-- Portfolio Section -->
+      <section id="portfolio">
+        <h2 data-i18n="portfolio.title">Portfolio</h2>
+        <div class="portfolio-items">
+          <!-- Example portfolio item -->
+          <div class="portfolio-item">
+            <img src="https://via.placeholder.com/300x200" alt="3D Design" />
+            <h3 data-i18n="portfolio.item1.title">3D Designs &amp; Scans</h3>
+            <p data-i18n="portfolio.item1.description">
+              Explore my innovative 3D models and scans.
+            </p>
+          </div>
+          <!-- Add more portfolio items as needed -->
+        </div>
+      </section>
+
+      <!-- Blog Section -->
+      <section id="blog">
+        <h2 data-i18n="blog.title">Latest Blog Posts</h2>
+        <article class="blog-post">
+          <h3 data-i18n="blog.post1.title">
+            Innovations in Additive Manufacturing
+          </h3>
+          <p data-i18n="blog.post1.excerpt">
+            Discover the latest trends and breakthroughs in 3D printing and automation...
+          </p>
+          <a href="#" data-i18n="blog.readMore">Read More</a>
+        </article>
+        <!-- More blog posts can be added here -->
+      </section>
+
+      <!-- Contact Section -->
+      <section id="contact">
+        <h2 data-i18n="contact.title">Contact Me</h2>
+        <p data-i18n="contact.description">
+          Feel free to reach out for consultations, speaking engagements, or collaborations.
+        </p>
+        <form id="contact-form">
+          <input type="text" placeholder="Your Name" required />
+          <input type="email" placeholder="Your Email" required />
+          <textarea placeholder="Your Message" required></textarea>
+          <button type="submit" data-i18n="contact.send">Send Message</button>
+        </form>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 My Public Figure. All rights reserved.</p>
+    </footer>
+
+    <!-- Custom Script for i18n and interactions -->
+    <script src="script.js"></script>
+  </body>
+</html>
