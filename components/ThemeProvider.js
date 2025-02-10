@@ -6,15 +6,6 @@ import ThemeTransitionLoader from './ThemeTransitionLoader';
 
 const ThemeContext = createContext();
 
-// Debounce helper
-const debounce = (func, wait) => {
-  let timeout;
-  return (...args) => {
-    clearTimeout(timeout);
-    timeout = setTimeout(() => func(...args), wait);
-  };
-};
-
 export const useTheme = () => {
   const context = useContext(ThemeContext);
   if (!context) {
@@ -49,13 +40,10 @@ export const ThemeProvider = ({ initialTheme = defaultTheme, children }) => {
   }, []);
 
   const applyThemeToDOM = useCallback(
-    debounce((themeToApply) => {
+    (themeToApply) => {
       if (typeof window === 'undefined') return;
-
       setIsTransitioning(true);
-
       const root = document.documentElement;
-
       // Apply transition classes for smooth changes
       root.style.setProperty('--theme-transition-duration', `${preferences.transitionDuration}ms`);
       root.classList.add('theme-transitioning');
@@ -75,7 +63,6 @@ export const ThemeProvider = ({ initialTheme = defaultTheme, children }) => {
       Object.entries(themeToApply.typography.fontSize).forEach(([key, value]) => {
         root.style.setProperty(`--font-size-${key}`, value);
       });
-
       Object.entries(themeToApply.spacing).forEach(([key, value]) => {
         root.style.setProperty(`--spacing-${key}`, value);
       });
@@ -85,8 +72,19 @@ export const ThemeProvider = ({ initialTheme = defaultTheme, children }) => {
         root.classList.remove('theme-transitioning');
         setIsTransitioning(false);
       }, preferences.transitionDuration);
-    }, 50),
+    },
     [preferences.transitionDuration, setIsTransitioning]
+  );
+
+  // Memoize the debounced version
+  const debouncedApplyTheme = useCallback(
+    (themeToApply) => {
+      const timeoutId = setTimeout(() => {
+        applyThemeToDOM(themeToApply);
+      }, 50);
+      return () => clearTimeout(timeoutId);
+    },
+    [applyThemeToDOM]
   );
 
   const updateTheme = useCallback(
@@ -98,37 +96,40 @@ export const ThemeProvider = ({ initialTheme = defaultTheme, children }) => {
         };
 
         if (preferences.autoApply) {
-          applyThemeToDOM(updatedTheme);
+          debouncedApplyTheme(updatedTheme);
         }
 
         return updatedTheme;
       });
     },
-    [preferences.autoApply, applyThemeToDOM]
+    [preferences.autoApply, debouncedApplyTheme]
   );
 
-  const updatePreferences = useCallback((newPreferences) => {
-    setPreferences((current) => {
-      const updated = { ...current, ...newPreferences };
+  const updatePreferences = useCallback(
+    (newPreferences) => {
+      setPreferences((current) => {
+        const updated = { ...current, ...newPreferences };
 
-      // Save preferences
-      if ('colorFormat' in newPreferences) {
-        PreferenceManager.setColorFormat(newPreferences.colorFormat);
-      }
-      if ('autoApply' in newPreferences) {
-        PreferenceManager.setAutoApplyTheme(newPreferences.autoApply);
-      }
+        // Save preferences
+        if ('colorFormat' in newPreferences) {
+          PreferenceManager.setColorFormat(newPreferences.colorFormat);
+        }
+        if ('autoApply' in newPreferences) {
+          PreferenceManager.setAutoApplyTheme(newPreferences.autoApply);
+        }
 
-      return updated;
-    });
-  }, []);
+        return updated;
+      });
+    },
+    [setPreferences]
+  );
 
   // Apply initial theme
   useEffect(() => {
     if (preferences.autoApply) {
-      applyThemeToDOM(theme);
+      debouncedApplyTheme(theme);
     }
-  }, [theme, preferences.autoApply, applyThemeToDOM]);
+  }, [theme, preferences.autoApply, debouncedApplyTheme]);
 
   return (
     <ThemeContext.Provider
