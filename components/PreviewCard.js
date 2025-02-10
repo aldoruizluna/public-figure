@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 
-const PreviewCard = ({ theme }) => {
+const PreviewCard = ({ theme: _theme }) => {
   const [showTooltip, setShowTooltip] = useState(false);
 
   return (
     <div className="theme-preview">
       <h4>Theme Preview</h4>
-      
+
       <div className="preview-elements">
         {/* Button previews */}
         <div className="preview-section">
@@ -33,7 +33,8 @@ const PreviewCard = ({ theme }) => {
           <div className="text-preview">
             <h6>Heading</h6>
             <p>Regular paragraph text</p>
-            <a href="#" 
+            <a
+              href="#"
               onMouseEnter={() => setShowTooltip(true)}
               onMouseLeave={() => setShowTooltip(false)}
             >
@@ -67,7 +68,9 @@ const PreviewCard = ({ theme }) => {
           color: var(--color-text-secondary);
         }
 
-        .primary-btn, .secondary-btn, .accent-btn {
+        .primary-btn,
+        .secondary-btn,
+        .accent-btn {
           margin-right: var(--spacing-sm);
           padding: var(--spacing-sm) var(--spacing-md);
           border: none;
@@ -94,7 +97,7 @@ const PreviewCard = ({ theme }) => {
           padding: var(--spacing-md);
           background: var(--color-background-primary);
           border-radius: var(--spacing-xs);
-          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .text-preview {

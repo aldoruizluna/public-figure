@@ -29,85 +29,88 @@ export const ThemeProvider = ({ initialTheme = defaultTheme, children }) => {
   const [preferences, setPreferences] = useState({
     colorFormat: 'hex',
     autoApply: true,
-    transitionDuration: 300 // milliseconds
+    transitionDuration: 300, // milliseconds
   });
 
   // Load saved preferences on mount
   useEffect(() => {
     const savedThemeName = PreferenceManager.getActiveTheme();
     const savedTheme = loadThemePreset(savedThemeName);
-    
+
     if (savedTheme) {
       setTheme(savedTheme);
     }
 
-    setPreferences(prev => ({
+    setPreferences((prev) => ({
       ...prev,
       colorFormat: PreferenceManager.getColorFormat(),
-      autoApply: PreferenceManager.getAutoApplyTheme()
+      autoApply: PreferenceManager.getAutoApplyTheme(),
     }));
   }, []);
 
-  const applyThemeToDOM = useCallback(debounce((themeToApply) => {
-    if (typeof window === 'undefined') return;
+  const applyThemeToDOM = useCallback(
+    debounce((themeToApply) => {
+      if (typeof window === 'undefined') return;
 
-    setIsTransitioning(true);
+      setIsTransitioning(true);
 
-    const root = document.documentElement;
-    
-    // Apply transition classes for smooth changes
-    root.style.setProperty(
-      '--theme-transition-duration',
-      `${preferences.transitionDuration}ms`
-    );
-    root.classList.add('theme-transitioning');
+      const root = document.documentElement;
 
-    // Apply theme properties
-    Object.entries(themeToApply.colors).forEach(([key, value]) => {
-      if (typeof value === 'object') {
-        Object.entries(value).forEach(([subKey, subValue]) => {
-          root.style.setProperty(`--color-${key}-${subKey}`, subValue);
-        });
-      } else {
-        root.style.setProperty(`--color-${key}`, value);
-      }
-    });
+      // Apply transition classes for smooth changes
+      root.style.setProperty('--theme-transition-duration', `${preferences.transitionDuration}ms`);
+      root.classList.add('theme-transitioning');
 
-    // Apply other theme properties
-    Object.entries(themeToApply.typography.fontSize).forEach(([key, value]) => {
-      root.style.setProperty(`--font-size-${key}`, value);
-    });
+      // Apply theme properties
+      Object.entries(themeToApply.colors).forEach(([key, value]) => {
+        if (typeof value === 'object') {
+          Object.entries(value).forEach(([subKey, subValue]) => {
+            root.style.setProperty(`--color-${key}-${subKey}`, subValue);
+          });
+        } else {
+          root.style.setProperty(`--color-${key}`, value);
+        }
+      });
 
-    Object.entries(themeToApply.spacing).forEach(([key, value]) => {
-      root.style.setProperty(`--spacing-${key}`, value);
-    });
+      // Apply other theme properties
+      Object.entries(themeToApply.typography.fontSize).forEach(([key, value]) => {
+        root.style.setProperty(`--font-size-${key}`, value);
+      });
 
-    // Remove transition class after changes are complete
-    setTimeout(() => {
-      root.classList.remove('theme-transitioning');
-      setIsTransitioning(false);
-    }, preferences.transitionDuration);
-  }, 50), [preferences.transitionDuration]);
+      Object.entries(themeToApply.spacing).forEach(([key, value]) => {
+        root.style.setProperty(`--spacing-${key}`, value);
+      });
 
-  const updateTheme = useCallback((newTheme) => {
-    setTheme((currentTheme) => {
-      const updatedTheme = {
-        ...currentTheme,
-        ...newTheme,
-      };
+      // Remove transition class after changes are complete
+      setTimeout(() => {
+        root.classList.remove('theme-transitioning');
+        setIsTransitioning(false);
+      }, preferences.transitionDuration);
+    }, 50),
+    [preferences.transitionDuration, setIsTransitioning]
+  );
 
-      if (preferences.autoApply) {
-        applyThemeToDOM(updatedTheme);
-      }
+  const updateTheme = useCallback(
+    (newTheme) => {
+      setTheme((currentTheme) => {
+        const updatedTheme = {
+          ...currentTheme,
+          ...newTheme,
+        };
 
-      return updatedTheme;
-    });
-  }, [preferences.autoApply, applyThemeToDOM]);
+        if (preferences.autoApply) {
+          applyThemeToDOM(updatedTheme);
+        }
+
+        return updatedTheme;
+      });
+    },
+    [preferences.autoApply, applyThemeToDOM]
+  );
 
   const updatePreferences = useCallback((newPreferences) => {
-    setPreferences(current => {
+    setPreferences((current) => {
       const updated = { ...current, ...newPreferences };
-      
+
       // Save preferences
       if ('colorFormat' in newPreferences) {
         PreferenceManager.setColorFormat(newPreferences.colorFormat);
@@ -128,14 +131,16 @@ export const ThemeProvider = ({ initialTheme = defaultTheme, children }) => {
   }, [theme, preferences.autoApply, applyThemeToDOM]);
 
   return (
-    <ThemeContext.Provider value={{ 
-      theme, 
-      updateTheme,
-      preferences,
-      updatePreferences,
-      applyThemeToDOM,
-      isTransitioning
-    }}>
+    <ThemeContext.Provider
+      value={{
+        theme,
+        updateTheme,
+        preferences,
+        updatePreferences,
+        applyThemeToDOM,
+        isTransitioning,
+      }}
+    >
       <ThemeTransitionLoader isVisible={isTransitioning} />
       {children}
     </ThemeContext.Provider>
