@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 const ThemeTransitionLoader = ({ isVisible }) => {
   return (
@@ -68,6 +68,10 @@ const ThemeTransitionLoader = ({ isVisible }) => {
       `}</style>
     </div>
   );
+};
+
+ThemeTransitionLoader.propTypes = {
+  isVisible: PropTypes.bool.isRequired,
 };
 
 export default ThemeTransitionLoader;

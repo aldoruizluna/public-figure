@@ -1,7 +1,6 @@
 import HeroSection from './HeroSection';
-import { branding } from '../config/branding';
 
-export default {
+const storyConfig = {
   title: 'Sections/HeroSection',
   component: HeroSection,
   parameters: {
@@ -53,3 +52,5 @@ CustomBranded.args = {
   textColor: '#ffffff',
   aFrameColor: '#ff4081',
 };
+
+export default storyConfig;

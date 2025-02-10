@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import { defaultTheme, loadThemePreset } from '../config/theme';
 import { PreferenceManager } from '../utils/PreferenceManager';
 import ThemeTransitionLoader from './ThemeTransitionLoader';
@@ -140,3 +141,10 @@ export const ThemeProvider = ({ initialTheme = defaultTheme, children }) => {
     </ThemeContext.Provider>
   );
 };
+
+ThemeProvider.propTypes = {
+  initialTheme: PropTypes.object,
+  children: PropTypes.node.isRequired,
+};
+
+export default ThemeProvider;

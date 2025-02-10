@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 
 const PreviewCard = ({ theme }) => {
   const [showTooltip, setShowTooltip] = useState(false);
@@ -125,6 +126,10 @@ const PreviewCard = ({ theme }) => {
       `}</style>
     </div>
   );
+};
+
+PreviewCard.propTypes = {
+  theme: PropTypes.object.isRequired,
 };
 
 export default PreviewCard;

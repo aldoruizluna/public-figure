@@ -2,6 +2,7 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 import { useEffect, useState } from "react";
 import ThemeCustomizer from "./ThemeCustomizer";
+import PropTypes from 'prop-types';
 
 const Layout = ({ children }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -40,6 +41,10 @@ const Layout = ({ children }) => {
       <Footer />
     </>
   );
+};
+
+Layout.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export default Layout;
