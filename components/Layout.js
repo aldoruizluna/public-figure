@@ -1,9 +1,11 @@
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import { useEffect, useState } from "react";
+import ThemeCustomizer from "./ThemeCustomizer";
 
 const Layout = ({ children }) => {
   const [isVisible, setIsVisible] = useState(false);
+  const isDevelopment = process.env.NODE_ENV === 'development';
 
   useEffect(() => {
     const toggleVisibility = () => {
@@ -34,6 +36,7 @@ const Layout = ({ children }) => {
         onClick={scrollToTop}
         aria-label="Back to top"
       />
+      {isDevelopment && <ThemeCustomizer />}
       <Footer />
     </>
   );

@@ -1,8 +1,10 @@
-# Aldo Ruiz Luna Portfolio & White-Label SaaS Webapp
+# White-Label Portfolio & SaaS Webapp
 
-This project is a robust, modular personal brand and portfolio webapp built with [Next.js](https://nextjs.org/) and [React](https://reactjs.org/). It is designed to be containerized with Docker for both local development and static export for deployment on GitHub Pages.
+A modern, modular, and customizable portfolio webapp built with Next.js and React. This project is designed to be easily white-labeled and extended for SaaS offerings.
 
 ## Table of Contents
+- [Documentation](#documentation)
+- [Quick Start](#quick-start)
 - [Key Features](#key-features)
 - [Project Structure](#project-structure)
 - [Prerequisites](#prerequisites)
@@ -16,6 +18,35 @@ This project is a robust, modular personal brand and portfolio webapp built with
 - [Customization](#customization)
 - [Contributing](#contributing)
 - [License](#license)
+- [Support](#support)
+- [Acknowledgments](#acknowledgments)
+
+## 📚 Documentation
+
+Detailed documentation can be found in the `docs` directory:
+
+- [Getting Started](docs/getting-started.md)
+- [Architecture Overview](docs/architecture.md)
+- [Style Guide](docs/style-guide.md)
+- [Component Documentation](docs/components.md)
+- [White-labeling Guide](docs/white-labeling.md)
+- [Contributing Guidelines](docs/CONTRIBUTING.md)
+
+## 🚀 Quick Start
+
+```bash
+# Install dependencies
+npm install
+
+# Run development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Export static site
+npm run export
+```
 
 ## Key Features
 - **Next.js & React:** Modern architecture for your personal brand
@@ -163,7 +194,7 @@ All components in the `components/` directory are modular and can be:
 This project is open source and available under the [MIT License](LICENSE).
 
 ## Support
-For support, please open an issue in the GitHub repository or contact the maintainers directly.
+For support, please check our [documentation](docs/) or open an issue in the GitHub repository.
 
 ## Acknowledgments
 - Next.js team for the amazing framework
