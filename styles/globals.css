@@ -22,32 +22,135 @@ a {
 .navbar {
   background-color: #222;
   color: #fff;
-  padding: 10px 20px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  transition: background-color 0.3s ease;
+}
+
+.navbar.scrolled {
+  background-color: rgba(34, 34, 34, 0.95);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.navbar .logo a {
+
+.logo a {
   font-size: 1.8em;
   font-weight: bold;
 }
+
+.nav-content {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 15px;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
 }
+
 .nav-links li a {
   color: #fff;
   font-weight: 500;
+  transition: color 0.3s ease;
+  position: relative;
 }
+
+.nav-links li a:hover {
+  color: #e0e0e0;
+}
+
+.nav-links li a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: #fff;
+  transition: width 0.3s ease;
+}
+
+.nav-links li a:hover::after {
+  width: 100%;
+}
+
 .lang-switcher button {
   margin-left: 5px;
   padding: 5px 10px;
   border: none;
-  background: #fff;
-  color: #222;
+  background: transparent;
+  color: #fff;
   cursor: pointer;
   border-radius: 3px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.lang-switcher button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Mobile Menu Button */
+.mobile-menu-button {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 24px;
+  position: relative;
+  z-index: 1001;
+}
+
+.mobile-menu-button span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: #fff;
+  position: absolute;
+  left: 0;
+  transition: all 0.3s ease;
+}
+
+.mobile-menu-button span:first-child {
+  top: 0;
+}
+
+.mobile-menu-button span:nth-child(2) {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.mobile-menu-button span:last-child {
+  bottom: 0;
+}
+
+.mobile-menu-button.open span:first-child {
+  transform: translateY(11px) rotate(45deg);
+}
+
+.mobile-menu-button.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.mobile-menu-button.open span:last-child {
+  transform: translateY(-11px) rotate(-45deg);
 }
 
 /* Hero Section */
@@ -162,4 +265,53 @@ form button {
   .hero-content h1 {
     font-size: 2em;
   }
+
+  .mobile-menu-button {
+    display: block;
+  }
+
+  .nav-content {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 100%;
+    height: 100vh;
+    background-color: #222;
+    flex-direction: column;
+    justify-content: center;
+    transition: right 0.3s ease;
+    padding: 2rem;
+  }
+
+  .nav-content.open {
+    right: 0;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .nav-links li {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+  }
+
+  .nav-content.open .nav-links li {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: calc(0.1s * var(--i));
+  }
+
+  .lang-switcher {
+    margin-top: 2rem;
+  }
+}
+
+/* Update body padding to account for fixed navbar */
+body {
+  padding-top: 70px;
 }
