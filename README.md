@@ -1,137 +1,85 @@
-# Aldo Ruiz Luna Portfolio & White-Label SaaS Webapp
+# Al Do Ruiz Luna Portfolio & White-Label SaaS Webapp
 
-This project is a robust, modular personal brand and portfolio webapp built with [Next.js](https://nextjs.org/) and [React](https://reactjs.org/). It is designed not only to showcase your expertise in advanced 3D fabrication, automation consulting, and creative expression, but also to be scalable into a white-label SaaS solution for multiple clients.
+This project is a robust, modular personal brand and portfolio webapp built with [Next.js](https://nextjs.org/) and [React](https://reactjs.org/). It is designed to be containerized with Docker for both local development and static export for deployment on GitHub Pages.
 
 ## Key Features
 
-- **Modern Next.js Architecture:** No need for a traditional `index.html`—Next.js handles routing and rendering via the `pages` directory.
-- **Modular & Scalable:** Built with a component-driven architecture for easy customization and white labeling.
-- **Multilingual Support:** Powered by `i18next` and `react-i18next` to provide a seamless English/Spanish experience.
-- **Dynamic 3D/VR Content:** Integrated A-Frame scenes for immersive 3D content.
-- **Fully Responsive:** A mobile-first design that looks great on any device.
-- **Extensible:** Ready to be enhanced with dynamic data, custom theming, an admin dashboard, and more.
+- **Next.js & React:** Modern architecture for your personal brand.
+- **Dockerized:** Use Docker for local development, building, and testing.
+- **Static Export:** Export your Next.js app as a static site and deploy to GitHub Pages.
+- **Multilingual Support:** Powered by `i18next` and `react-i18next` for English and Spanish.
+- **Modular Components:** Easily white-label the solution for SaaS offerings.
 
-## Project Structure
+## Docker Usage
 
-```
-my-portfolio-app/
-├── components/
-│   ├── AboutSection.js
-│   ├── BlogSection.js
-│   ├── ContactSection.js
-│   ├── Footer.js
-│   ├── HeroSection.js
-│   ├── Layout.js
-│   ├── Navbar.js
-│   ├── PortfolioSection.js
-│   └── ServicesSection.js
-├── config/
-│   ├── branding.js
-│   └── i18n.js
-├── pages/
-│   ├── _app.js
-│   ├── _document.js   // (Optional: customize the overall HTML)
-│   └── index.js
-├── public/
-│   └── images/
-│       ├── logo.png
-│       ├── placeholder1.jpg
-│       ├── placeholder2.jpg
-│       ├── placeholder3.jpg
-│       └── placeholder4.jpg
-├── styles/
-│   └── globals.css
-├── next.config.js
-└── package.json
+### Local Development
+
+Use Docker Compose to run the Next.js development server in a container.
+
+```bash
+docker-compose up
 ```
 
-## Getting Started
+Then visit [http://localhost:3000](http://localhost:3000) to view your app.
 
-### Prerequisites
+### Building & Running the Production Container
 
-- [Node.js](https://nodejs.org/) (version 14 or later is recommended)
-- npm (comes with Node.js) or [Yarn](https://yarnpkg.com/)
+To build the production container (which serves your static export via Nginx):
 
-### Installation
+```bash
+docker build --target production -t my-portfolio-app:production .
+docker run -p 80:80 my-portfolio-app:production
+```
 
-1. **Clone the Repository**
+Then visit [http://localhost](http://localhost) to see the static site.
+
+## GitHub Actions Deployment
+
+This repository is set up to build your static export using Docker and deploy it to GitHub Pages automatically. When you push to the `main` branch, the GitHub Actions workflow:
+
+1. Builds the Docker image (using the builder stage).
+2. Extracts the static export from the container.
+3. Deploys the exported site to the `gh-pages` branch via the [peaceiris/actions-gh-pages](https://github.com/peaceiris/actions-gh-pages) action.
+
+Your site will then be available at:
+
+```
+https://<your-username>.github.io/<your-repo>/
+```
+
+## Getting Started Locally
+
+1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/yourusername/my-portfolio-app.git
-   cd my-portfolio-app
+   git clone https://github.com/yourusername/your-repo.git
+   cd your-repo
    ```
 
-2. **Install Dependencies**
+2. **Install dependencies (if needed locally):**
 
    ```bash
    npm install
-   # or, if you use Yarn:
-   # yarn install
    ```
 
-### Running the Development Server
+3. **Run using Docker Compose (for development):**
 
-Start the Next.js development server:
+   ```bash
+   docker-compose up
+   ```
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+4. **Build and Export:**
 
-Open [http://localhost:3000](http://localhost:3000) to view your webapp in the browser. The page will automatically reload if you make changes.
+   ```bash
+   docker build --target builder -t my-portfolio-app:builder .
+   docker run --rm my-portfolio-app:builder npm run export
+   # The exported site will be in the `out` folder.
+   ```
 
-### Building & Deploying
+5. **Deploy to GitHub Pages:**
 
-To build the project for production:
-
-```bash
-npm run build
-# or
-yarn build
-```
-
-Then, to start the production server locally:
-
-```bash
-npm run start
-# or
-yarn start
-```
-
-For deployment, you can host your Next.js app on platforms such as [Vercel](https://vercel.com/), [Netlify](https://www.netlify.com/), or any Node‑compatible hosting service.
-
-## Customization & White Labeling
-
-- **Branding:**  
-  Modify the file `config/branding.js` to update your brand’s name, logo, tagline, and other settings. This file makes it simple to swap out the branding for different white-label customers.
-
-- **Internationalization:**  
-  Update translation strings in `config/i18n.js` as needed. You can add more languages or adjust the existing English and Spanish content.
-
-- **Styling:**  
-  Global styles are defined in `styles/globals.css`. You can extend or override these styles using CSS modules, styled‑components, or your preferred styling method.
-
-- **Components:**  
-  The project is built with a modular architecture. All major sections (e.g., Hero, About, Services, Portfolio, Blog, Contact) are organized as separate components in the `components/` folder. This makes it easy to rearrange, extend, or even remove sections as your needs evolve.
-
-- **Advanced Features:**  
-  As you scale the project into a SaaS offering, consider adding:
-  - An admin dashboard for managing content.
-  - API routes for dynamic data (blog posts, portfolio items, etc.).
-  - User authentication and multi-tenancy support.
-  - Theming and custom styling per white-label customer.
-
-## Additional Information
-
-### About `index.html` in Next.js
-
-In Next.js, you do **not** need a traditional `index.html` file. The homepage is rendered from `pages/index.js`, and the overall HTML document is managed by Next.js. If you need to customize the HTML structure, create a custom `pages/_document.js` file.
+   The GitHub Actions workflow handles deployment automatically when you push changes to `main`.
 
 ## License
 
 This project is open source and available under the [MIT License](LICENSE).
-
----
-
-Feel free to fork, customize, and extend this project as you continue to build your digital presence and white-label SaaS solution!

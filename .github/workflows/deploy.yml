@@ -3,34 +3,38 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main  # Change this if your default branch is different
+      - main  # Adjust if your default branch is different
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the repository
+      # Checkout your repository
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      # Setup Node.js
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16'  # or a version of your choice
+      # Build the Docker image using the builder stage
+      - name: Build Docker Image (builder stage)
+        run: docker build --target builder -t my-portfolio-app:builder .
 
-      # Install dependencies
-      - name: Install Dependencies
-        run: npm install
-
-      # Build and export the Next.js app
-      - name: Build and Export
+      # Create a container from the builder image and capture its ID
+      - name: Create Container
+        id: create_container
         run: |
-          npm run build
-          npm run export
+          container_id=$(docker create my-portfolio-app:builder)
+          echo "container_id=$container_id" >> $GITHUB_OUTPUT
 
-      # Deploy the exported static site to GitHub Pages
+      # Copy the exported static site from the container to the host (into the ./out folder)
+      - name: Copy Out Folder from Container
+        run: |
+          docker cp ${{ steps.create_container.outputs.container_id }}:/app/out ./out
+
+      # Remove the temporary container
+      - name: Remove Temporary Container
+        run: docker rm ${{ steps.create_container.outputs.container_id }}
+
+      # Deploy the static site using the peaceiris/actions-gh-pages action
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:

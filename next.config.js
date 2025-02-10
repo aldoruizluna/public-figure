@@ -4,6 +4,7 @@ module.exports = {
     locales: ['en', 'es'],
     defaultLocale: 'es',
   },
-  // Optional: if you need trailing slashes for GitHub Pages
   trailingSlash: true,
+  // This tells Next.js to generate a static export during build.
+  output: 'export',
 };
