@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Al Do Ruiz Luna – Polymath & Public Figure</title>
+    <link rel="stylesheet" href="styles.css" />
+
+    <!-- External Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/i18next@21.8.15/dist/umd/i18next.min.js"></script>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <div class="logo">Al Do Ruiz Luna</div>
+        <ul class="nav-links">
+          <li><a href="#home" data-i18n="nav.home">Home</a></li>
+          <li><a href="#about" data-i18n="nav.about">About</a></li>
+          <li><a href="#services" data-i18n="nav.services">Services</a></li>
+          <li><a href="#portfolio" data-i18n="nav.portfolio">Portfolio</a></li>
+          <li><a href="#blog" data-i18n="nav.blog">Blog</a></li>
+          <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+        </ul>
+        <div class="lang-switcher">
+          <button id="lang-en">EN</button>
+          <button id="lang-es">ES</button>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Hero Section with an Embedded 3D/VR Scene -->
+      <section id="home" class="hero-section">
+        <div class="hero-content">
+          <h1 data-i18n="home.title">Welcome to the Future of Innovation</h1>
+          <p data-i18n="home.subtitle">
+            Where cutting-edge 3D fabrication meets art and business excellence.
+          </p>
+        </div>
+        <!-- A simple A-Frame scene as a dynamic background -->
+        <a-scene embedded class="hero-scene">
+          <a-box
+            position="0 1.25 -5"
+            rotation="0 45 0"
+            color="#4CC3D9"
+            animation="property: rotation; to: 0 405 0; loop: true; dur: 8000">
+          </a-box>
+          <a-sky color="#ECECEC"></a-sky>
+        </a-scene>
+      </section>
+
+      <!-- About Section -->
+      <section id="about" class="about-section">
+        <div class="container">
+          <h2 data-i18n="about.title">About Me</h2>
+          <p data-i18n="about.description">
+            I am a polymath dedicated to advancing the fields of 3D printing, 3D scanning, and multimaterial fabrications, while offering cutting-edge business and automation consulting. My journey is a blend of technology, art, and sustainable living.
+          </p>
+        </div>
+      </section>
+
+      <!-- Services Section -->
+      <section id="services" class="services-section">
+        <div class="container">
+          <h2 data-i18n="services.title">Services & Expertise</h2>
+          <div class="services-grid">
+            <div class="service-item">
+              <h3 data-i18n="services.item1.title">3D Printing &amp; Scanning</h3>
+              <p data-i18n="services.item1.description">
+                Innovative additive manufacturing solutions and precision scanning technologies.
+              </p>
+            </div>
+            <div class="service-item">
+              <h3 data-i18n="services.item2.title">Multimaterial Fabrications</h3>
+              <p data-i18n="services.item2.description">
+                Advanced techniques for creating complex, multi-material structures.
+              </p>
+            </div>
+            <div class="service-item">
+              <h3 data-i18n="services.item3.title">Business &amp; Automation Consulting</h3>
+              <p data-i18n="services.item3.description">
+                Strategic insights and cutting-edge solutions for automation and business optimization.
+              </p>
+            </div>
+            <div class="service-item">
+              <h3 data-i18n="services.item4.title">Art &amp; Creative Expression</h3>
+              <p data-i18n="services.item4.description">
+                Curated creative projects including music, dance, and digital art that inspire and engage.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Portfolio Section -->
+      <section id="portfolio" class="portfolio-section">
+        <div class="container">
+          <h2 data-i18n="portfolio.title">Portfolio</h2>
+          <div class="portfolio-grid">
+            <div class="portfolio-item">
+              <img src="https://via.placeholder.com/400x300" alt="3D Printing & Scanning" />
+              <h3 data-i18n="portfolio.item1.title">3D Printing &amp; Scanning</h3>
+              <p data-i18n="portfolio.item1.description">
+                Latest innovations in additive manufacturing and precision scanning.
+              </p>
+            </div>
+            <div class="portfolio-item">
+              <img src="https://via.placeholder.com/400x300" alt="Multimaterial Fabrications" />
+              <h3 data-i18n="portfolio.item2.title">Multimaterial Fabrications</h3>
+              <p data-i18n="portfolio.item2.description">
+                Advanced demonstrations of fabricating complex, multi-material structures.
+              </p>
+            </div>
+            <div class="portfolio-item">
+              <img src="https://via.placeholder.com/400x300" alt="Consulting Projects" />
+              <h3 data-i18n="portfolio.item3.title">Consulting Projects</h3>
+              <p data-i18n="portfolio.item3.description">
+                Case studies and success stories in business process optimization.
+              </p>
+            </div>
+            <div class="portfolio-item">
+              <img src="https://via.placeholder.com/400x300" alt="Creative Expression" />
+              <h3 data-i18n="portfolio.item4.title">Creative Expression</h3>
+              <p data-i18n="portfolio.item4.description">
+                A glimpse into my artistic endeavors – from digital art to live performances.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Blog / Insights Section -->
+      <section id="blog" class="blog-section">
+        <div class="container">
+          <h2 data-i18n="blog.title">Insights &amp; Blog</h2>
+          <div class="blog-posts">
+            <article class="blog-post">
+              <h3 data-i18n="blog.post1.title">Revolutionizing 3D Fabrication</h3>
+              <p data-i18n="blog.post1.excerpt">
+                Exploring the latest breakthroughs in 3D printing and scanning technology...
+              </p>
+              <a href="#" data-i18n="blog.readMore">Read More</a>
+            </article>
+            <article class="blog-post">
+              <h3 data-i18n="blog.post2.title">Automation in Modern Business</h3>
+              <p data-i18n="blog.post2.excerpt">
+                How automation is transforming industries and what you need to know...
+              </p>
+              <a href="#" data-i18n="blog.readMore">Read More</a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Section -->
+      <section id="contact" class="contact-section">
+        <div class="container">
+          <h2 data-i18n="contact.title">Get In Touch</h2>
+          <p data-i18n="contact.description">
+            Reach out to discuss collaborations, consulting opportunities, or any inquiries.
+          </p>
+          <form id="contact-form">
+            <input type="text" name="name" placeholder="Your Name" required />
+            <input type="email" name="email" placeholder="Your Email" required />
+            <textarea name="message" placeholder="Your Message" required></textarea>
+            <button type="submit" data-i18n="contact.send">Send Message</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <p>&copy; 2025 Al Do Ruiz Luna. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
