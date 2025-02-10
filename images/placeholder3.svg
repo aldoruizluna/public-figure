@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="#2196F3"/>
+  <g transform="translate(100,75)">
+    <path d="M50,0 L200,0 L200,30 L50,30 Z" fill="#fff"/>
+    <path d="M50,45 L150,45 L150,75 L50,75 Z" fill="#fff"/>
+    <path d="M50,90 L180,90 L180,120 L50,120 Z" fill="#fff"/>
+  </g>
+  <text x="200" y="250" text-anchor="middle" fill="#fff" font-family="Arial" font-size="24">Consulting</text>
+</svg>
