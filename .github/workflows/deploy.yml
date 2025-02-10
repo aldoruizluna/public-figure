@@ -34,9 +34,9 @@ jobs:
       - name: Remove Temporary Container
         run: docker rm ${{ steps.create_container.outputs.container_id }}
 
-      # Deploy the static site using the peaceiris/actions-gh-pages action
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GH_PAT }}
           publish_dir: ./out
+          publish_branch: gh-pages
