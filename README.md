@@ -1,4 +1,4 @@
-# Al Do Ruiz Luna Portfolio & White-Label SaaS Webapp
+# Aldo Ruiz Luna Portfolio & White-Label SaaS Webapp
 
 This project is a robust, modular personal brand and portfolio webapp built with [Next.js](https://nextjs.org/) and [React](https://reactjs.org/). It is designed to be containerized with Docker for both local development and static export for deployment on GitHub Pages.
 
